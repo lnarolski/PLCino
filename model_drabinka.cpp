@@ -98,6 +98,7 @@ bool model_drabinka::dropMimeData(const QMimeData *data, Qt::DropAction action, 
     //Aby pozbyć się znaków '\0' z "dane_mime" :
     QDataStream stream(&dane_mime, QIODevice::ReadOnly);
     QMap<int,  QVariant> dane_mime_QMap;
+    //OGARNĄĆ CO TU SIĘ DZIEJE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! :
     while (!stream.atEnd())
     {
         int row_temp, col_temp;
@@ -122,6 +123,15 @@ bool model_drabinka::dropMimeData(const QMimeData *data, Qt::DropAction action, 
     }
     else if (upuszczony_element == "Licznik CTU") {
         model_dane.at(parent.row())->replace(parent.column(), new elementy_drabinki(blok_funkcyjny, LICZNIK));
+    }
+    else if (upuszczony_element == "MOVE") {
+        model_dane.at(parent.row())->replace(parent.column(), new elementy_drabinki(blok_funkcyjny, MOVE));
+    }
+    else if (upuszczony_element == "+") {
+        model_dane.at(parent.row())->replace(parent.column(), new elementy_drabinki(operator_matematyczny, DODAWANIE));
+    }
+    else if (upuszczony_element == "-") {
+        model_dane.at(parent.row())->replace(parent.column(), new elementy_drabinki(operator_matematyczny, ODEJMOWANIE));
     }
     else if (upuszczony_element == "─") {
         model_dane.at(parent.row())->replace(parent.column(), new elementy_drabinki(lacznik, LEWO_PRAWO));
@@ -271,7 +281,7 @@ QPixmap model_drabinka::generowanie_grafik(elementy_drabinki *element) const
 //        painter.drawLine(70,50,100,50);
         painter.drawArc(30,30,10,40,16 * 90, 16 * 180);
         painter.drawArc(50,30,10,40,16 * -90, 16 * 180);
-        painter.drawText(0,2,100,15,Qt::AlignCenter,element->zmienna);
+        painter.drawText(0,2,100,10,Qt::AlignCenter,element->zmienna);
         switch (element->rodzaj2) {
         case ZWYKLA:
             break;
@@ -287,7 +297,7 @@ QPixmap model_drabinka::generowanie_grafik(elementy_drabinki *element) const
         painter.drawLine(70,50,100,50);
         painter.drawLine(30,30,30,70);
         painter.drawLine(70,30,70,70);
-        painter.drawText(0,2,100,15,Qt::AlignCenter,element->zmienna);
+        painter.drawText(0,2,100,10,Qt::AlignCenter,element->zmienna);
         switch (element->rodzaj2) {
         case ZWYKLY:
             break;
@@ -303,8 +313,8 @@ QPixmap model_drabinka::generowanie_grafik(elementy_drabinki *element) const
         painter.drawLine(70,50,100,50);
         painter.drawLine(30,30,30,70);
         painter.drawLine(70,30,70,70);
-        painter.drawText(0,10,100,15,Qt::AlignCenter,element->parametry.value(ELEMENT1));
-        painter.drawText(0,80,100,15,Qt::AlignCenter,element->parametry.value(ELEMENT2));
+        painter.drawText(0,10,100,10,Qt::AlignCenter,element->parametry.value(ELEMENT1));
+        painter.drawText(0,80,100,10,Qt::AlignCenter,element->parametry.value(ELEMENT2));
         switch (element->rodzaj2) {
         case ROWNY:
             painter.drawText(30,45,40,10,Qt::AlignCenter,"==");
@@ -334,15 +344,12 @@ QPixmap model_drabinka::generowanie_grafik(elementy_drabinki *element) const
         switch (element->rodzaj2) {
         case TIMER:
             painter.drawText(20,15,70,15,Qt::AlignRight,"TON");
-            painter.drawText(40,45,70,15,Qt::AlignLeft,"IN");
-            painter.drawText(20,80,70,15,Qt::AlignRight,"1 ms");
             painter.drawLine(30,75,35,75);
-            painter.drawText(40,70,55,15,Qt::AlignLeft,"PT");
+            painter.drawText(40,70,55,15,Qt::AlignLeft,"PV");
             painter.drawText(0,70,35,10,Qt::AlignCenter,element->parametry.value(PV));
             break;
         case LICZNIK:
             painter.drawText(20,15,70,15,Qt::AlignRight,"CTU");
-            painter.drawText(40,45,70,15,Qt::AlignLeft,"CU");
             painter.drawLine(30,65,35,65);
             painter.drawText(40,60,70,15,Qt::AlignLeft,"R");
             painter.drawText(0,60,35,10,Qt::AlignCenter,element->parametry.value(ZMIENNA_RESETUJACA));

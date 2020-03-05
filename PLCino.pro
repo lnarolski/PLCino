@@ -33,17 +33,7 @@ SOURCES += \
     model_uzywane_zmienne.cpp \
     model_drabinka.cpp \
     wybor_portu.cpp \
-    edycja_specjalna.cpp \
-    dodawanie_zmiennej.cpp \
-    edycja_specjalna.cpp \
-    elementy_drabinki.cpp \
-    main.cpp \
-    model_drabinka.cpp \
-    model_uzywane_zmienne.cpp \
-    plcino.cpp \
-    specjalna_edycja.cpp \
-    uzywane_zmienne.cpp \
-    wybor_portu.cpp
+    edycja_specjalna.cpp
 
 HEADERS += \
         plcino.h \
@@ -56,26 +46,7 @@ HEADERS += \
     wybor_portu.h \
     zmienna_w_arduino.h \
     edycja_specjalna.h \
-    elementy_schematu.h \
-    dodawanie_zmiennej.h \
-    edycja_specjalna.h \
-    elementy_drabinki.h \
-    elementy_schematu.h \
-    model_drabinka.h \
-    model_uzywane_zmienne.h \
-    moje_klasy.h \
-    okno_edycji_wlasciwosci.h \
-    plcino.h \
-    typy_wyliczeniowe.h \
-    ui_dodawanie_zmiennej.h \
-    ui_okno_edycji_wlasciwosci.h \
-    ui_plcino.h \
-    ui_uzywane_zmienne.h \
-    ui_wybor_portu.h \
-    ui_zmienne.h \
-    uzywane_zmienne.h \
-    wybor_portu.h \
-    zmienna_w_arduino.h
+    elementy_schematu.h
 
 FORMS += \
         plcino.ui \
@@ -90,19 +61,7 @@ DISTFILES += \
     C:/Users/Łukasz/Box Sync/Inżynierka/Ikony/rsz_dodaj_wiersz.png \
     C:/Users/Łukasz/Box Sync/Inżynierka/Ikony/usun_kolumne.png \
     C:/Users/Łukasz/Box Sync/Inżynierka/Ikony/usun_linie.png \
-    C:/Users/Łukasz/Box Sync/Inżynierka/Ikony/usun_wiersz.png \
-    Ikony/dodaj_kolumne.png \
-    Ikony/dodaj_wiersz.png \
-    Ikony/nowa_linia.png \
-    Ikony/rsz_dodaj_wiersz.png \
-    Ikony/usun_kolumne.png \
-    Ikony/usun_linie.png \
-    Ikony/usun_wiersz.png \
-    Screenshots/screenshot1.png \
-    Screenshots/screenshot2.png \
-    Screenshots/screenshot3.png \
-    Screenshots/screenshot4.png \
-    Screenshots/screenshot5.png
+    C:/Users/Łukasz/Box Sync/Inżynierka/Ikony/usun_wiersz.png
 
 RESOURCES += \
     zasoby.qrc

@@ -52,9 +52,9 @@ public:
     ~PLCino();
 
 private slots:
-    void on_actionNowy_obwod_triggered();
+    void on_actionNowa_linia_triggered();
 
-    void on_actionUsun_obwod_triggered();
+    void on_actionUsun_linie_triggered();
 
     void on_actionDodaj_kolumne_triggered();
 
@@ -96,8 +96,8 @@ private slots:
 
 public:
     Ui::PLCino *ui;
-    QList<QTableView*> lista_obwodow; //lista graficznych obwodów(tabel)
-    QList<model_drabinka*> lista_modeli; //lista modeli danych dla każdego graficznego obwodu
+    QList<QTableView*> lista_linii; //lista graficznych linii(tabel)
+    QList<model_drabinka*> lista_modeli; //lista modeli danych dla każdej graficznej linii
     QMap<QString, zmienna_w_arduino> lista_uzywanych_zmiennych; //lista używanych zmiennych z nazwami w środowisku graficznym oraz odpowiadającymi im nazwami w programie Arduino
     uzywane_zmienne* okno_edycji_zmiennych; //okno służące do edycji listy używanych zmiennych
     QDialog* okno_wyboru_portu; //okno używane do wyboru portu COM, do którego podłączona jest płytka Arduino
@@ -119,7 +119,6 @@ private:
     QString warunek;
     bool sprawdz_czy_jest_na_liscie(elementy_drabinki* a, QList<elementy_schematu*>* b);
     bool sprawdz_czy_jest_na_liscie(elementy_schematu* a, QList<elementy_schematu*> b);
-    bool sprawdz_czy_jest_na_liscie(QString a, QList<elementy_schematu*> liczniki, QList<elementy_schematu *> timery);
     bool sprawdz_czy_jest_na_wejsciu_lub_wyjsciu(elementy_drabinki* a, elementy_schematu* b);
     elementy_schematu* znajdz_element_drabinki(QList <elementy_schematu*> lista, elementy_drabinki* a);
     bool czy_styk_nalezy_do_bloku_funkcyjnego(QString nazwa_zmiennej, QList<elementy_schematu*> liczniki, QList<elementy_schematu*> timery);

@@ -28,34 +28,32 @@ PLCino::~PLCino()
     delete ui;
 }
 
-void PLCino::on_actionNowy_obwod_triggered()
+void PLCino::on_actionNowa_linia_triggered()
 {
-    lista_obwodow.insert(lista_obwodow.size(), new QTableView(this));
+    lista_linii.insert(lista_linii.size(), new QTableView(this));
     lista_modeli.insert(lista_modeli.size(), new model_drabinka(this));
-    lista_obwodow[lista_obwodow.size() - 1]->setModel(lista_modeli[lista_modeli.size() - 1]);
-    lista_obwodow[lista_obwodow.size() - 1]->setAcceptDrops(true);
-    lista_obwodow[lista_obwodow.size() - 1]->setDropIndicatorShown(true);
-    lista_obwodow[lista_obwodow.size() - 1]->setDragDropOverwriteMode(true);
-    lista_obwodow[lista_obwodow.size() - 1]->setSelectionMode(QAbstractItemView::SingleSelection); //możliwość zaznaczenia tylko jednej komórki
-    lista_obwodow[lista_obwodow.size() - 1]->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
-    lista_obwodow[lista_obwodow.size() - 1]->setMinimumHeight(400);
-    lista_obwodow[lista_obwodow.size() - 1]->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
-    lista_obwodow[lista_obwodow.size() - 1]->verticalHeader()->setDefaultSectionSize(100);
-    lista_obwodow[lista_obwodow.size() - 1]->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
-    lista_obwodow[lista_obwodow.size() - 1]->horizontalHeader()->setDefaultSectionSize(100);
-    ui->verticalLayout->addWidget(lista_obwodow[lista_obwodow.size() - 1],0);
-    connect(lista_obwodow[lista_obwodow.size() - 1], SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(edycja_wlasciwosci(const QModelIndex &))); //podłączenie sygnału podwójnego kliknięcia do metody edycja_wlasciwosci
+    lista_linii[lista_linii.size() - 1]->setModel(lista_modeli[lista_modeli.size() - 1]);
+    lista_linii[lista_linii.size() - 1]->setAcceptDrops(true);
+    lista_linii[lista_linii.size() - 1]->setDropIndicatorShown(true);
+    lista_linii[lista_linii.size() - 1]->setDragDropOverwriteMode(true);
+    lista_linii[lista_linii.size() - 1]->setSelectionMode(QAbstractItemView::SingleSelection); //możliwość zaznaczenia tylko jednej komórki
+    lista_linii[lista_linii.size() - 1]->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
+    lista_linii[lista_linii.size() - 1]->setMinimumHeight(400);
+    lista_linii[lista_linii.size() - 1]->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+    lista_linii[lista_linii.size() - 1]->verticalHeader()->setDefaultSectionSize(100);
+    ui->verticalLayout->addWidget(lista_linii[lista_linii.size() - 1],0);
+    connect(lista_linii[lista_linii.size() - 1], SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(edycja_wlasciwosci(const QModelIndex &))); //podłączenie sygnału podwójnego kliknięcia do metody edycja_wlasciwosci
 //    statusBar()->showMessage("Liczba linii: " + QString::number(lista_linii.size()) + " LayoutStretch: " + QString::number(ui->verticalLayout->stretch(lista_linii.size()-1))); //DEBUG
 }
 
-void PLCino::on_actionUsun_obwod_triggered()
+void PLCino::on_actionUsun_linie_triggered()
 {
-    for (int i = 0; i < lista_obwodow.size(); i++) {
-        if(lista_obwodow[i]->hasFocus()) {
+    for (int i = 0; i < lista_linii.size(); i++) {
+        if(lista_linii[i]->hasFocus()) {
             QLayoutItem *element_layout = ui->verticalLayout->takeAt(i); //OGARNĄĆ CO TU SIĘ DZIEJE
             delete element_layout->widget();
             delete element_layout;
-            lista_obwodow.removeAt(i);
+            lista_linii.removeAt(i);
             lista_modeli.removeAt(i);
             break;
         }
@@ -64,9 +62,9 @@ void PLCino::on_actionUsun_obwod_triggered()
 
 void PLCino::on_actionDodaj_kolumne_triggered()
 {
-    for (int i = 0; i < lista_obwodow.size(); i++) {
-        if(lista_obwodow[i]->hasFocus()) {
-            QModelIndexList zaznaczenie = lista_obwodow[i]->selectionModel()->selectedIndexes();
+    for (int i = 0; i < lista_linii.size(); i++) {
+        if(lista_linii[i]->hasFocus()) {
+            QModelIndexList zaznaczenie = lista_linii[i]->selectionModel()->selectedIndexes();
             if(zaznaczenie.length() != 0)
                 lista_modeli[i]->insertColumn(zaznaczenie[0].column()+1);
             else
@@ -77,9 +75,9 @@ void PLCino::on_actionDodaj_kolumne_triggered()
 
 void PLCino::on_actionUsun_kolumne_triggered()
 {
-    for (int i = 0; i < lista_obwodow.size(); i++) {
-        if(lista_obwodow[i]->hasFocus()) {
-            QModelIndexList zaznaczenie = lista_obwodow[i]->selectionModel()->selectedIndexes();
+    for (int i = 0; i < lista_linii.size(); i++) {
+        if(lista_linii[i]->hasFocus()) {
+            QModelIndexList zaznaczenie = lista_linii[i]->selectionModel()->selectedIndexes();
             if(zaznaczenie.length() != 0)
                 lista_modeli[i]->removeColumn(zaznaczenie[0].column());
         }
@@ -88,9 +86,9 @@ void PLCino::on_actionUsun_kolumne_triggered()
 
 void PLCino::on_actionDodaj_wiersz_triggered()
 {
-    for (int i = 0; i < lista_obwodow.size(); i++) {
-        if(lista_obwodow[i]->hasFocus()) {
-            QModelIndexList zaznaczenie = lista_obwodow[i]->selectionModel()->selectedIndexes();
+    for (int i = 0; i < lista_linii.size(); i++) {
+        if(lista_linii[i]->hasFocus()) {
+            QModelIndexList zaznaczenie = lista_linii[i]->selectionModel()->selectedIndexes();
             if(zaznaczenie.length() != 0)
                 lista_modeli[i]->insertRow(zaznaczenie[0].row()+1);
             else
@@ -102,9 +100,9 @@ void PLCino::on_actionDodaj_wiersz_triggered()
 
 void PLCino::on_actionUsun_wiersz_triggered()
 {
-    for (int i = 0; i < lista_obwodow.size(); i++) {
-        if(lista_obwodow[i]->hasFocus()) {
-            QModelIndexList zaznaczenie = lista_obwodow[i]->selectionModel()->selectedIndexes();
+    for (int i = 0; i < lista_linii.size(); i++) {
+        if(lista_linii[i]->hasFocus()) {
+            QModelIndexList zaznaczenie = lista_linii[i]->selectionModel()->selectedIndexes();
             if(zaznaczenie.length() != 0)
                 lista_modeli[i]->removeRow(zaznaczenie[0].row());
         }
@@ -138,8 +136,8 @@ void PLCino::on_actionPort_triggered()
 void PLCino::edycja_wlasciwosci(const QModelIndex ModelIndex)
 {
     if(ModelIndex.isValid()) {
-        for (int i = 0; i < lista_obwodow.size(); i++) {
-            if(lista_obwodow[i]->hasFocus()) {
+        for (int i = 0; i < lista_linii.size(); i++) {
+            if(lista_linii[i]->hasFocus()) {
                 if (lista_modeli[i]->model_dane.at(ModelIndex.row())->at(ModelIndex.column())->rodzaj != pusty && lista_modeli[i]->model_dane.at(ModelIndex.row())->at(ModelIndex.column())->rodzaj != lacznik) {
                     if (lista_modeli[i]->model_dane.at(ModelIndex.row())->at(ModelIndex.column())->rodzaj != cewka && lista_modeli[i]->model_dane.at(ModelIndex.row())->at(ModelIndex.column())->rodzaj != styk) {
                         if (okno_edycji_specjalnej == NULL) {
@@ -222,7 +220,7 @@ void PLCino::on_actionNowy_triggered()
             delete element_layout->widget();
             delete element_layout;
         }
-        lista_obwodow.clear();
+        lista_linii.clear();
         lista_modeli.clear();
         lista_uzywanych_zmiennych.clear();
         konfiguracja.wybrana_plytka = brak;
@@ -240,13 +238,13 @@ int PLCino::kompilator()
     QList<elementy_schematu*> timery;
     QList<elementy_schematu*> cewki;
     QList<elementy_schematu*> rozdzielacze;
-    QList<QList <elementy_schematu*>*> przetworzone_obwody;
+    QList<QList <elementy_schematu*>*> przetworzone_linie;
     QList<QList <elementy_schematu*>*> poczatki;
     QList<QList <elementy_schematu*>*> konce;
 
     //ROZPOCZĘCIE ANALIZY KOLEJNYCH LINII(poszukiwanie elementów "wykonawczych" i rozdzielaczy)
     for (int i = 0; i < lista_modeli.count(); ++i) {
-        przetworzone_obwody.append(new QList <elementy_schematu*>);
+        przetworzone_linie.append(new QList <elementy_schematu*>);
         poczatki.append(new QList <elementy_schematu*>);
         konce.append(new QList <elementy_schematu*>);
         for (int j = 0; j < lista_modeli[i]->model_dane.count(); ++j) {
@@ -277,11 +275,11 @@ int PLCino::kompilator()
                     switch (lista_modeli[i]->model_dane.at(j)->at(k)->rodzaj2) {
                     case LICZNIK:
                         liczniki.append(new elementy_schematu(lista_modeli[i]->model_dane.at(j)->at(k), i, k, j));
-                        przetworzone_obwody[i]->append(new elementy_schematu(lista_modeli[i]->model_dane.at(j)->at(k), i, k, j));
+                        przetworzone_linie[i]->append(new elementy_schematu(lista_modeli[i]->model_dane.at(j)->at(k), i, k, j));
                         break;
                     case TIMER:
                         timery.append(new elementy_schematu(lista_modeli[i]->model_dane.at(j)->at(k), i, k, j));
-                        przetworzone_obwody[i]->append(new elementy_schematu(lista_modeli[i]->model_dane.at(j)->at(k), i, k, j));
+                        przetworzone_linie[i]->append(new elementy_schematu(lista_modeli[i]->model_dane.at(j)->at(k), i, k, j));
                     default:
                         break;
                     }
@@ -290,14 +288,14 @@ int PLCino::kompilator()
                     break;
                 case cewka:
                     cewki.append(new elementy_schematu(lista_modeli[i]->model_dane.at(j)->at(k), i, k, j));
-                    przetworzone_obwody[i]->append(new elementy_schematu(lista_modeli[i]->model_dane.at(j)->at(k), i, k, j));
+                    przetworzone_linie[i]->append(new elementy_schematu(lista_modeli[i]->model_dane.at(j)->at(k), i, k, j));
                     konce[i]->append(new elementy_schematu(lista_modeli[i]->model_dane.at(j)->at(k), i, k, j));
                     break;
                 case styk:
-                    przetworzone_obwody[i]->append(new elementy_schematu(lista_modeli[i]->model_dane.at(j)->at(k), i, k, j));
+                    przetworzone_linie[i]->append(new elementy_schematu(lista_modeli[i]->model_dane.at(j)->at(k), i, k, j));
                     break;
                 case operator_porownania:
-                    przetworzone_obwody[i]->append(new elementy_schematu(lista_modeli[i]->model_dane.at(j)->at(k), i, k, j));
+                    przetworzone_linie[i]->append(new elementy_schematu(lista_modeli[i]->model_dane.at(j)->at(k), i, k, j));
                     break;
                 default:
                     break;
@@ -405,35 +403,35 @@ int PLCino::kompilator()
                             }
                             break;
                         case cewka:
-                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             koniec = true;
                             break;
                         case styk:
                             if (x > x_poprz) {
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             }
                             else {
-                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                             }
                             koniec = true;
                             break;
                         case operator_porownania:
                             if (x > x_poprz) {
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             }
                             else {
-                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                             }
                             koniec = true;
                             break;
                         case blok_funkcyjny:
-                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             koniec = true;
                             break;
                         default:
@@ -533,35 +531,35 @@ int PLCino::kompilator()
                             }
                             break;
                         case cewka:
-                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             koniec = true;
                             break;
                         case styk:
                             if (x > x_poprz) {
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             }
                             else {
-                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                             }
                             koniec = true;
                             break;
                         case operator_porownania:
                             if (x > x_poprz) {
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             }
                             else {
-                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                             }
                             koniec = true;
                             break;
                         case blok_funkcyjny:
-                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             koniec = true;
                             break;
                         default:
@@ -661,35 +659,35 @@ int PLCino::kompilator()
                             }
                             break;
                         case cewka:
-                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             koniec = true;
                             break;
                         case styk:
                             if (x > x_poprz) {
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             }
                             else {
-                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                             }
                             koniec = true;
                             break;
                         case operator_porownania:
                             if (x > x_poprz) {
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             }
                             else {
-                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                             }
                             koniec = true;
                             break;
                         case blok_funkcyjny:
-                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             koniec = true;
                             break;
                         default:
@@ -799,35 +797,35 @@ int PLCino::kompilator()
                             }
                             break;
                         case cewka:
-                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             koniec = true;
                             break;
                         case styk:
                             if (x > x_poprz) {
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             }
                             else {
-                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                             }
                             koniec = true;
                             break;
                         case operator_porownania:
                             if (x > x_poprz) {
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             }
                             else {
-                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                             }
                             koniec = true;
                             break;
                         case blok_funkcyjny:
-                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             koniec = true;
                             break;
                         default:
@@ -931,35 +929,35 @@ int PLCino::kompilator()
                                 }
                                 break;
                             case cewka:
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                                 koniec = true;
                                 break;
                             case styk:
                                 if (x > x_poprz) {
-                                    rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                    znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                    rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                    znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                                 }
                                 else {
-                                    rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                    znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                    rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                    znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                                 }
                                 koniec = true;
                                 break;
                             case operator_porownania:
                                 if (x > x_poprz) {
-                                    rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                    znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                    rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                    znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                                 }
                                 else {
-                                    rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                    znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                    rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                    znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                                 }
                                 koniec = true;
                                 break;
                             case blok_funkcyjny:
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                                 koniec = true;
                                 break;
                             default:
@@ -1060,35 +1058,35 @@ int PLCino::kompilator()
                             }
                             break;
                         case cewka:
-                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             koniec = true;
                             break;
                         case styk:
                             if (x > x_poprz) {
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             }
                             else {
-                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                             }
                             koniec = true;
                             break;
                         case operator_porownania:
                             if (x > x_poprz) {
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             }
                             else {
-                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                             }
                             koniec = true;
                             break;
                         case blok_funkcyjny:
-                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             koniec = true;
                             break;
                         default:
@@ -1198,35 +1196,35 @@ int PLCino::kompilator()
                             }
                             break;
                         case cewka:
-                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             koniec = true;
                             break;
                         case styk:
                             if (x > x_poprz) {
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             }
                             else {
-                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                             }
                             koniec = true;
                             break;
                         case operator_porownania:
                             if (x > x_poprz) {
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             }
                             else {
-                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                             }
                             koniec = true;
                             break;
                         case blok_funkcyjny:
-                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             koniec = true;
                             break;
                         default:
@@ -1331,35 +1329,35 @@ int PLCino::kompilator()
                                 }
                                 break;
                             case cewka:
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                                 koniec = true;
                                 break;
                             case styk:
                                 if (x > x_poprz) {
-                                    rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                    znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                    rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                    znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                                 }
                                 else {
-                                    rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                    znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                    rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                    znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                                 }
                                 koniec = true;
                                 break;
                             case operator_porownania:
                                 if (x > x_poprz) {
-                                    rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                    znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                    rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                    znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                                 }
                                 else {
-                                    rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                    znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                    rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                    znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                                 }
                                 koniec = true;
                                 break;
                             case blok_funkcyjny:
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                                 koniec = true;
                                 break;
                             default:
@@ -1460,35 +1458,35 @@ int PLCino::kompilator()
                             }
                             break;
                         case cewka:
-                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             koniec = true;
                             break;
                         case styk:
                             if (x > x_poprz) {
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             }
                             else {
-                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                             }
                             koniec = true;
                             break;
                         case operator_porownania:
                             if (x > x_poprz) {
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             }
                             else {
-                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                             }
                             koniec = true;
                             break;
                         case blok_funkcyjny:
-                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             koniec = true;
                             break;
                         default:
@@ -1598,35 +1596,35 @@ int PLCino::kompilator()
                             }
                             break;
                         case cewka:
-                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             koniec = true;
                             break;
                         case styk:
                             if (x > x_poprz) {
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             }
                             else {
-                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                             }
                             koniec = true;
                             break;
                         case operator_porownania:
                             if (x > x_poprz) {
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             }
                             else {
-                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                             }
                             koniec = true;
                             break;
                         case blok_funkcyjny:
-                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             koniec = true;
                             break;
                         default:
@@ -1731,35 +1729,35 @@ int PLCino::kompilator()
                                 }
                                 break;
                             case cewka:
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                                 koniec = true;
                                 break;
                             case styk:
                                 if (x > x_poprz) {
-                                    rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                    znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                    rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                    znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                                 }
                                 else {
-                                    rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                    znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                    rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                    znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                                 }
                                 koniec = true;
                                 break;
                             case operator_porownania:
                                 if (x > x_poprz) {
-                                    rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                    znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                    rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                    znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                                 }
                                 else {
-                                    rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                    znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                    rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                    znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                                 }
                                 koniec = true;
                                 break;
                             case blok_funkcyjny:
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                                 koniec = true;
                                 break;
                             default:
@@ -1860,35 +1858,35 @@ int PLCino::kompilator()
                             }
                             break;
                         case cewka:
-                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             koniec = true;
                             break;
                         case styk:
                             if (x > x_poprz) {
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             }
                             else {
-                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                             }
                             koniec = true;
                             break;
                         case operator_porownania:
                             if (x > x_poprz) {
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             }
                             else {
-                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                             }
                             koniec = true;
                             break;
                         case blok_funkcyjny:
-                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             koniec = true;
                             break;
                         default:
@@ -1998,35 +1996,35 @@ int PLCino::kompilator()
                             }
                             break;
                         case cewka:
-                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             koniec = true;
                             break;
                         case styk:
                             if (x > x_poprz) {
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             }
                             else {
-                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                             }
                             koniec = true;
                             break;
                         case operator_porownania:
                             if (x > x_poprz) {
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             }
                             else {
-                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                             }
                             koniec = true;
                             break;
                         case blok_funkcyjny:
-                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             koniec = true;
                             break;
                         default:
@@ -2131,35 +2129,35 @@ int PLCino::kompilator()
                                 }
                                 break;
                             case cewka:
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                                 koniec = true;
                                 break;
                             case styk:
                                 if (x > x_poprz) {
-                                    rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                    znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                    rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                    znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                                 }
                                 else {
-                                    rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                    znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                    rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                    znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                                 }
                                 koniec = true;
                                 break;
                             case operator_porownania:
                                 if (x > x_poprz) {
-                                    rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                    znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                    rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                    znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                                 }
                                 else {
-                                    rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                    znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                    rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                    znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                                 }
                                 koniec = true;
                                 break;
                             case blok_funkcyjny:
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                                 koniec = true;
                                 break;
                             default:
@@ -2260,35 +2258,35 @@ int PLCino::kompilator()
                             }
                             break;
                         case cewka:
-                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             koniec = true;
                             break;
                         case styk:
                             if (x > x_poprz) {
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             }
                             else {
-                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                             }
                             koniec = true;
                             break;
                         case operator_porownania:
                             if (x > x_poprz) {
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             }
                             else {
-                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                             }
                             koniec = true;
                             break;
                         case blok_funkcyjny:
-                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             koniec = true;
                             break;
                         default:
@@ -2388,35 +2386,35 @@ int PLCino::kompilator()
                             }
                             break;
                         case cewka:
-                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             koniec = true;
                             break;
                         case styk:
                             if (x > x_poprz) {
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             }
                             else {
-                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                             }
                             koniec = true;
                             break;
                         case operator_porownania:
                             if (x > x_poprz) {
-                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             }
                             else {
-                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                                znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
+                                rozdzielacze[i]->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                                znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wyjscia_elementu.append(rozdzielacze[i]);
                             }
                             koniec = true;
                             break;
                         case blok_funkcyjny:
-                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
+                            rozdzielacze[i]->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], lista_modeli[rozdzielacze.at(i)->numer_linii]->model_dane.at(y)->at(x))->wejscia_elementu.append(rozdzielacze[i]);
                             koniec = true;
                             break;
                         default:
@@ -2434,15 +2432,15 @@ int PLCino::kompilator()
 
         }
     }
-    for (int i = 0; i < przetworzone_obwody.count(); ++i) { //analiza "nierozdzielaczy"
-        for (int j = 0; j < przetworzone_obwody[i]->count(); ++j) {
-            if (przetworzone_obwody[i]->at(j)->wejscia_elementu.count() == 0) { //WEJŚCIA ELEMENTÓW
-                if (przetworzone_obwody[i]->at(j)->numer_kolumny == 0) {
-                    przetworzone_obwody[i]->at(j)->wejscia_elementu.append(NULL);
+    for (int i = 0; i < przetworzone_linie.count(); ++i) { //analiza "nierozdzielaczy"
+        for (int j = 0; j < przetworzone_linie[i]->count(); ++j) {
+            if (przetworzone_linie[i]->at(j)->wejscia_elementu.count() == 0) { //WEJŚCIA ELEMENTÓW
+                if (przetworzone_linie[i]->at(j)->numer_kolumny == 0) {
+                    przetworzone_linie[i]->at(j)->wejscia_elementu.append(NULL);
                 }
                 else {
                     bool koniec = false;
-                    int x = przetworzone_obwody[i]->at(j)->numer_kolumny, y = przetworzone_obwody[i]->at(j)->numer_wiersza, y_poprz = przetworzone_obwody[i]->at(j)->numer_wiersza, x_poprz = przetworzone_obwody[i]->at(j)->numer_kolumny;
+                    int x = przetworzone_linie[i]->at(j)->numer_kolumny, y = przetworzone_linie[i]->at(j)->numer_wiersza, y_poprz = przetworzone_linie[i]->at(j)->numer_wiersza, x_poprz = przetworzone_linie[i]->at(j)->numer_kolumny;
                     while(!koniec) {
                         --x;
                         switch (lista_modeli[i]->model_dane.at(y)->at(x)->rodzaj) {
@@ -2450,7 +2448,7 @@ int PLCino::kompilator()
                             if (lista_modeli[i]->model_dane.at(y)->at(x)->rodzaj2 == LEWO_PRAWO) {
                                 if (x_poprz > x) { //RUCH W LEWO
                                     if (x == 0) { //PIERWSZA KOLUMNA
-                                        przetworzone_obwody[i]->at(j)->wejscia_elementu.append(NULL);
+                                        przetworzone_linie[i]->at(j)->wejscia_elementu.append(NULL);
                                         koniec = true;
                                     }
                                     else {
@@ -2486,7 +2484,7 @@ int PLCino::kompilator()
                             else if (lista_modeli[i]->model_dane.at(y)->at(x)->rodzaj2 == DOL_LEWO) {
                                 if (y_poprz > y) { //ZMIANA KIERUNKU W LEWO
                                     if (x == 0) {
-                                        przetworzone_obwody[i]->at(j)->wejscia_elementu.append(NULL);
+                                        przetworzone_linie[i]->at(j)->wejscia_elementu.append(NULL);
                                         koniec = true;
                                     }
                                     else {
@@ -2512,7 +2510,7 @@ int PLCino::kompilator()
                             else if (lista_modeli[i]->model_dane.at(y)->at(x)->rodzaj2 == GORA_LEWO) {
                                 if (y > y_poprz) { //ZMIANA KIERUNKU W LEWO
                                     if (x == 0) {
-                                        przetworzone_obwody[i]->at(j)->wejscia_elementu.append(NULL);
+                                        przetworzone_linie[i]->at(j)->wejscia_elementu.append(NULL);
                                         koniec = true;
                                     }
                                     else {
@@ -2527,13 +2525,13 @@ int PLCino::kompilator()
                             }
                             break;
                         case styk:
-                            przetworzone_obwody[i]->at(j)->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[i], lista_modeli[i]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[i], lista_modeli[i]->model_dane.at(y)->at(x))->wyjscia_elementu.append(przetworzone_obwody[i]->at(j));
+                            przetworzone_linie[i]->at(j)->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[i], lista_modeli[i]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[i], lista_modeli[i]->model_dane.at(y)->at(x))->wyjscia_elementu.append(przetworzone_linie[i]->at(j));
                             koniec = true;
                             break;
                         case operator_porownania:
-                            przetworzone_obwody[i]->at(j)->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[i], lista_modeli[i]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[i], lista_modeli[i]->model_dane.at(y)->at(x))->wyjscia_elementu.append(przetworzone_obwody[i]->at(j));
+                            przetworzone_linie[i]->at(j)->wejscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[i], lista_modeli[i]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[i], lista_modeli[i]->model_dane.at(y)->at(x))->wyjscia_elementu.append(przetworzone_linie[i]->at(j));
                             koniec = true;
                             break;
                         default:
@@ -2542,10 +2540,10 @@ int PLCino::kompilator()
                     }
                 }
             }
-            if (przetworzone_obwody[i]->at(j)->wyjscia_elementu.count() == 0) { //WYJŚCIA ELEMENTÓW
-                if (przetworzone_obwody[i]->at(j)->element->rodzaj != cewka && przetworzone_obwody[i]->at(j)->element->rodzaj != blok_funkcyjny) {
+            if (przetworzone_linie[i]->at(j)->wyjscia_elementu.count() == 0) { //WYJŚCIA ELEMENTÓW
+                if (przetworzone_linie[i]->at(j)->element->rodzaj != cewka && przetworzone_linie[i]->at(j)->element->rodzaj != blok_funkcyjny) {
                     bool koniec = false;
-                    int x = przetworzone_obwody[i]->at(j)->numer_kolumny, y = przetworzone_obwody[i]->at(j)->numer_wiersza, y_poprz = przetworzone_obwody[i]->at(j)->numer_wiersza, x_poprz = przetworzone_obwody[i]->at(j)->numer_kolumny;
+                    int x = przetworzone_linie[i]->at(j)->numer_kolumny, y = przetworzone_linie[i]->at(j)->numer_wiersza, y_poprz = przetworzone_linie[i]->at(j)->numer_wiersza, x_poprz = przetworzone_linie[i]->at(j)->numer_kolumny;
                     while(!koniec) {
                         ++x;
                         switch (lista_modeli[i]->model_dane.at(y)->at(x)->rodzaj) {
@@ -2612,23 +2610,23 @@ int PLCino::kompilator()
                             }
                             break;
                         case cewka:
-                            przetworzone_obwody[i]->at(j)->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[i], lista_modeli[i]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[i], lista_modeli[i]->model_dane.at(y)->at(x))->wejscia_elementu.append(przetworzone_obwody[i]->at(j));
+                            przetworzone_linie[i]->at(j)->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[i], lista_modeli[i]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[i], lista_modeli[i]->model_dane.at(y)->at(x))->wejscia_elementu.append(przetworzone_linie[i]->at(j));
                             koniec = true;
                             break;
                         case blok_funkcyjny:
-                            przetworzone_obwody[i]->at(j)->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[i], lista_modeli[i]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[i], lista_modeli[i]->model_dane.at(y)->at(x))->wejscia_elementu.append(przetworzone_obwody[i]->at(j));
+                            przetworzone_linie[i]->at(j)->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[i], lista_modeli[i]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[i], lista_modeli[i]->model_dane.at(y)->at(x))->wejscia_elementu.append(przetworzone_linie[i]->at(j));
                             koniec = true;
                             break;
                         case styk:
-                            przetworzone_obwody[i]->at(j)->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[i], lista_modeli[i]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[i], lista_modeli[i]->model_dane.at(y)->at(x))->wejscia_elementu.append(przetworzone_obwody[i]->at(j));
+                            przetworzone_linie[i]->at(j)->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[i], lista_modeli[i]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[i], lista_modeli[i]->model_dane.at(y)->at(x))->wejscia_elementu.append(przetworzone_linie[i]->at(j));
                             koniec = true;
                             break;
                         case operator_porownania:
-                            przetworzone_obwody[i]->at(j)->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_obwody[i], lista_modeli[i]->model_dane.at(y)->at(x)));
-                            znajdz_element_drabinki(*przetworzone_obwody[i], lista_modeli[i]->model_dane.at(y)->at(x))->wejscia_elementu.append(przetworzone_obwody[i]->at(j));
+                            przetworzone_linie[i]->at(j)->wyjscia_elementu.append(znajdz_element_drabinki(*przetworzone_linie[i], lista_modeli[i]->model_dane.at(y)->at(x)));
+                            znajdz_element_drabinki(*przetworzone_linie[i], lista_modeli[i]->model_dane.at(y)->at(x))->wejscia_elementu.append(przetworzone_linie[i]->at(j));
                             koniec = true;
                             break;
                         default:
@@ -2667,14 +2665,14 @@ int PLCino::kompilator()
                 for (int j = 0; j < rozdzielacze[i]->wejscia_elementu.count(); ++j) {
                     if (rozdzielacze[i]->wejscia_elementu[j] != NULL) {
                         for (int k = 0; k < rozdzielacze[i]->wyjscia_elementu.count(); ++k) {
-                            znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], rozdzielacze[i]->wejscia_elementu[j]->element)->wyjscia_elementu.append(rozdzielacze[i]->wyjscia_elementu[k]);
+                            znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], rozdzielacze[i]->wejscia_elementu[j]->element)->wyjscia_elementu.append(rozdzielacze[i]->wyjscia_elementu[k]);
                         }
                         rozdzielacze[i]->wejscia_elementu[j]->wyjscia_elementu.removeAll(rozdzielacze[i]);
                     }
                 }
                 for (int j = 0; j < rozdzielacze[i]->wyjscia_elementu.count(); ++j) {
                     for (int k = 0; k < rozdzielacze[i]->wejscia_elementu.count(); ++k) {
-                        znajdz_element_drabinki(*przetworzone_obwody[rozdzielacze[i]->numer_linii], rozdzielacze[i]->wyjscia_elementu[j]->element)->wejscia_elementu.append(rozdzielacze[i]->wejscia_elementu[k]);
+                        znajdz_element_drabinki(*przetworzone_linie[rozdzielacze[i]->numer_linii], rozdzielacze[i]->wyjscia_elementu[j]->element)->wejscia_elementu.append(rozdzielacze[i]->wejscia_elementu[k]);
                     }
                     rozdzielacze[i]->wyjscia_elementu[j]->wejscia_elementu.removeAll(rozdzielacze[i]);
                 }
@@ -2683,10 +2681,10 @@ int PLCino::kompilator()
             }
         }
     }
-    for (int i = 0; i < przetworzone_obwody.count(); ++i) { //znajdowanie początkowych elementów
-        for (int j = 0; j < przetworzone_obwody[i]->count(); ++j) {
-            if (sprawdz_czy_jest_na_liscie(NULL, przetworzone_obwody[i]->at(j)->wejscia_elementu)) {
-                poczatki[i]->append(przetworzone_obwody[i]->at(j));
+    for (int i = 0; i < przetworzone_linie.count(); ++i) { //znajdowanie początkowych elementów
+        for (int j = 0; j < przetworzone_linie[i]->count(); ++j) {
+            if (sprawdz_czy_jest_na_liscie(NULL, przetworzone_linie[i]->at(j)->wejscia_elementu)) {
+                poczatki[i]->append(przetworzone_linie[i]->at(j));
             }
         }
     }
@@ -2705,22 +2703,27 @@ int PLCino::kompilator()
              "public:\n"
              "timer(unsigned long a) {\n"
              "czas = 0;\n"
+             "poprzedni_czas_wykonania = 0;\n"
              "prog_zalaczenia = a;\n"
              "stan = false;\n"
              "}\n\n"
 
              "void wykonanie() {\n"
-             "if (czas == 0)\n"
-             "czas = millis();\n"
-             "if (!stan && millis() - czas >= prog_zalaczenia)\n"
+             "if (poprzedni_czas_wykonania > 0)\n"
+             "czas += millis() - poprzedni_czas_wykonania;\n"
+             "poprzedni_czas_wykonania = millis();\n"
+             "if (czas > prog_zalaczenia) {\n"
              "stan = true;\n"
+             "}\n"
              "}\n"
              "void reset() {\n"
              "stan = false;\n"
              "czas = 0;\n"
+             "poprzedni_czas_wykonania = 0;\n"
              "}\n\n"
 
              "unsigned long czas;\n"
+             "unsigned long poprzedni_czas_wykonania;\n"
              "unsigned long prog_zalaczenia;\n"
              "bool stan;\n"
              "};\n\n"; }
@@ -2875,16 +2878,9 @@ int PLCino::kompilator()
         }
     }
     for (int j = 0; j < liczniki.count(); j++) {
-        if (sprawdz_czy_jest_na_liscie(liczniki[j]->element->parametry.value(ZMIENNA_RESETUJACA), liczniki, timery)) {
-            out<<"if ("<<liczniki[j]->element->parametry.value(ZMIENNA_RESETUJACA)<<".stan) {";
-            out<<liczniki[j]->element->zmienna<<".reset();\n"
-                                                "}\n";
-        }
-        else {
-            out<<"if ("<<liczniki[j]->element->parametry.value(ZMIENNA_RESETUJACA)<<") {";
-            out<<liczniki[j]->element->zmienna<<".reset();\n"
-                                                "}\n";
-        }
+        out<<"if ("<<liczniki[j]->element->parametry.value(ZMIENNA_RESETUJACA)<<") {";
+        out<<liczniki[j]->element->zmienna<<".reset();\n"
+                                            "}\n";
     }
     i.toFront();
     while (i.hasNext()) { //zapis wartości do pinów na końcu działania pętli(jak w przyszłości będzie potrzeba sterowania analogowymi wyjściami to tutaj dodać potrzebne definicje)
@@ -2898,11 +2894,11 @@ int PLCino::kompilator()
     out<<"}";
     plik_z_projektem.close();
     //CZYSZCZENIE PAMIĘCI
-    for (int j = 0; j < przetworzone_obwody.count(); ++j) {
-        for (int k = 0; k < przetworzone_obwody[j]->count(); ++k) {
-            delete przetworzone_obwody[j]->at(k);
+    for (int j = 0; j < przetworzone_linie.count(); ++j) {
+        for (int k = 0; k < przetworzone_linie[j]->count(); ++k) {
+            delete przetworzone_linie[j]->at(k);
         }
-        delete przetworzone_obwody[j];
+        delete przetworzone_linie[j];
         delete poczatki[j];
         delete konce[j];
     }
@@ -2953,21 +2949,6 @@ bool PLCino::sprawdz_czy_jest_na_liscie(elementy_schematu *a, QList<elementy_sch
     return false;
 }
 
-bool PLCino::sprawdz_czy_jest_na_liscie(QString a, QList<elementy_schematu *> liczniki, QList<elementy_schematu *> timery)
-{
-    for (int i = 0; i < liczniki.count(); ++i) {
-        if (QString::compare(liczniki[i]->element->zmienna, a, Qt::CaseInsensitive) == 0) {
-            return true;
-        }
-    }
-    for (int i = 0; i < timery.count(); ++i) {
-        if (QString::compare(timery[i]->element->zmienna, a, Qt::CaseInsensitive) == 0) {
-            return true;
-        }
-    }
-    return false;
-}
-
 bool PLCino::sprawdz_czy_jest_na_wejsciu_lub_wyjsciu(elementy_drabinki *a, elementy_schematu *b)
 {
     for (int i = 0; i < b->wejscia_elementu.count(); ++i) {
@@ -3006,7 +2987,7 @@ bool PLCino::czy_styk_nalezy_do_bloku_funkcyjnego(QString nazwa_zmiennej, QList<
 void PLCino::tworzenie_warunkow(QTextStream &out, elementy_schematu *element, QString string, QList<elementy_schematu *> liczniki, QList<elementy_schematu *> timery)
 {
     QString warunek_kopia = string;
-    if (element->element->rodzaj == cewka || element->element->rodzaj == blok_funkcyjny) { //warunek, gdy w obwodzie znajduje się tylko cewka lub blok funkcyjny, który się zawsze wykonuje
+    if (element->element->rodzaj == cewka || element->element->rodzaj == blok_funkcyjny) { //warunek, gdy w linii znajduje się tylko cewka lub blok funkcyjny, który się zawsze wykonuje
         warunek += " true     ";
         return;
     }
@@ -3117,7 +3098,6 @@ void PLCino::on_actionKompiluj_i_wgraj_do_Arduino_triggered()
     statusBar()->showMessage("Kompilacja do języka Arduino...");
     kompilator();
     QDir dir = QDir::root();
-    dir.rmpath("temp/");
     dir.mkpath("temp/");
     dir.cd("temp/");
 
@@ -3316,21 +3296,19 @@ void PLCino::on_actionOtworz_triggered()
         break;
     }
     for (int i = 0; i < lista_modeli.count(); ++i) {
-        lista_obwodow.insert(i, new QTableView(this));
-        lista_obwodow[i]->setModel(lista_modeli[i]);
-        lista_obwodow[i]->setAcceptDrops(true);
-        lista_obwodow[i]->setDropIndicatorShown(true);
-        lista_obwodow[i]->setDragDropOverwriteMode(true);
-        lista_obwodow[i]->setSelectionMode(QAbstractItemView::SingleSelection); //możliwość zaznaczenia tylko jednej komórki
-        lista_obwodow[i]->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
-        lista_obwodow[i]->setMinimumHeight(400);
-        lista_obwodow[i]->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
-        lista_obwodow[i]->verticalHeader()->setDefaultSectionSize(100);
-        lista_obwodow[i]->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
-        lista_obwodow[i]->horizontalHeader()->setDefaultSectionSize(100);
-        lista_obwodow[i]->adjustSize();
-        ui->verticalLayout->addWidget(lista_obwodow[i],0);
-        connect(lista_obwodow[i], SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(edycja_wlasciwosci(const QModelIndex &))); //podłączenie sygnału podwójnego kliknięcia do metody edycja_wlasciwosci
+        lista_linii.insert(i, new QTableView(this));
+        lista_linii[i]->setModel(lista_modeli[i]);
+        lista_linii[i]->setAcceptDrops(true);
+        lista_linii[i]->setDropIndicatorShown(true);
+        lista_linii[i]->setDragDropOverwriteMode(true);
+        lista_linii[i]->setSelectionMode(QAbstractItemView::SingleSelection); //możliwość zaznaczenia tylko jednej komórki
+        lista_linii[i]->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
+        lista_linii[i]->setMinimumHeight(400);
+        lista_linii[i]->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+        lista_linii[i]->verticalHeader()->setDefaultSectionSize(100);
+        lista_linii[i]->adjustSize();
+        ui->verticalLayout->addWidget(lista_linii[i],0);
+        connect(lista_linii[i], SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(edycja_wlasciwosci(const QModelIndex &))); //podłączenie sygnału podwójnego kliknięcia do metody edycja_wlasciwosci
     }
     plik_z_projektem.flush();
     plik_z_projektem.close();
@@ -3338,9 +3316,9 @@ void PLCino::on_actionOtworz_triggered()
 
 void PLCino::on_actionEdycja_wlasciwosci_triggered()
 {
-    for (int i = 0; i < lista_obwodow.size(); i++) {
-        if(lista_obwodow[i]->hasFocus()) {
-            QModelIndexList zaznaczony_element = lista_obwodow[i]->selectionModel()->selectedIndexes(); //zawsze będzie tylko jeden element, bo wyłączone jest zaznaczanie wielu elementów w QTableView
+    for (int i = 0; i < lista_linii.size(); i++) {
+        if(lista_linii[i]->hasFocus()) {
+            QModelIndexList zaznaczony_element = lista_linii[i]->selectionModel()->selectedIndexes(); //zawsze będzie tylko jeden element, bo wyłączone jest zaznaczanie wielu elementów w QTableView
             if(zaznaczony_element.length() != 0) {
                 edycja_wlasciwosci(zaznaczony_element[0]);
                 break;
@@ -3351,9 +3329,9 @@ void PLCino::on_actionEdycja_wlasciwosci_triggered()
 
 void PLCino::on_actionUsun_element_triggered()
 {
-    for (int i = 0; i < lista_obwodow.size(); i++) {
-        if(lista_obwodow[i]->hasFocus()) {
-            QModelIndexList zaznaczony_element = lista_obwodow[i]->selectionModel()->selectedIndexes(); //zawsze będzie tylko jeden element, bo wyłączone jest zaznaczanie wielu elementów w QTableView
+    for (int i = 0; i < lista_linii.size(); i++) {
+        if(lista_linii[i]->hasFocus()) {
+            QModelIndexList zaznaczony_element = lista_linii[i]->selectionModel()->selectedIndexes(); //zawsze będzie tylko jeden element, bo wyłączone jest zaznaczanie wielu elementów w QTableView
             if(zaznaczony_element.length() != 0) {
                 lista_modeli[i]->model_dane.at(zaznaczony_element[0].row())->replace(zaznaczony_element[0].column(), new elementy_drabinki());
                 break;
@@ -3377,7 +3355,6 @@ void PLCino::on_actionWgraj_plik_C_do_Arduino_triggered()
     if (sciezka_pliku.isEmpty())
         return;
     QDir dir = QDir::root();
-    dir.rmpath("temp/");
     dir.mkpath("temp/");
     dir.cd("temp/");
 

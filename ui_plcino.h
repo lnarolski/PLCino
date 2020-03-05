@@ -38,8 +38,8 @@ public:
     QAction *actionPort;
     QAction *actionZapisz;
     QAction *actionUzywane_zmienne;
-    QAction *actionNowy_obwod;
-    QAction *actionUsun_obwod;
+    QAction *actionNowa_linia;
+    QAction *actionUsun_linie;
     QAction *actionDodaj_kolumne;
     QAction *actionUsun_kolumne;
     QAction *actionDodaj_wiersz;
@@ -89,35 +89,35 @@ public:
         actionZapisz->setObjectName(QStringLiteral("actionZapisz"));
         actionUzywane_zmienne = new QAction(PLCino);
         actionUzywane_zmienne->setObjectName(QStringLiteral("actionUzywane_zmienne"));
-        actionNowy_obwod = new QAction(PLCino);
-        actionNowy_obwod->setObjectName(QStringLiteral("actionNowy_obwod"));
+        actionNowa_linia = new QAction(PLCino);
+        actionNowa_linia->setObjectName(QStringLiteral("actionNowa_linia"));
         QIcon icon;
-        icon.addFile(QString::fromUtf8(":/ikony/C:/Users/\305\201ukasz/Box Sync/In\305\274ynierka/Ikony/nowa_linia.png"), QSize(), QIcon::Normal, QIcon::Off);
-        actionNowy_obwod->setIcon(icon);
-        actionUsun_obwod = new QAction(PLCino);
-        actionUsun_obwod->setObjectName(QStringLiteral("actionUsun_obwod"));
+        icon.addFile(QStringLiteral("Ikony/nowa_linia.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionNowa_linia->setIcon(icon);
+        actionUsun_linie = new QAction(PLCino);
+        actionUsun_linie->setObjectName(QStringLiteral("actionUsun_linie"));
         QIcon icon1;
-        icon1.addFile(QString::fromUtf8(":/ikony/C:/Users/\305\201ukasz/Box Sync/In\305\274ynierka/Ikony/usun_linie.png"), QSize(), QIcon::Normal, QIcon::Off);
-        actionUsun_obwod->setIcon(icon1);
+        icon1.addFile(QStringLiteral("Ikony/usun_linie.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionUsun_linie->setIcon(icon1);
         actionDodaj_kolumne = new QAction(PLCino);
         actionDodaj_kolumne->setObjectName(QStringLiteral("actionDodaj_kolumne"));
         QIcon icon2;
-        icon2.addFile(QString::fromUtf8(":/ikony/C:/Users/\305\201ukasz/Box Sync/In\305\274ynierka/Ikony/dodaj_kolumne.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon2.addFile(QStringLiteral("Ikony/dodaj_kolumne.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionDodaj_kolumne->setIcon(icon2);
         actionUsun_kolumne = new QAction(PLCino);
         actionUsun_kolumne->setObjectName(QStringLiteral("actionUsun_kolumne"));
         QIcon icon3;
-        icon3.addFile(QString::fromUtf8(":/ikony/C:/Users/\305\201ukasz/Box Sync/In\305\274ynierka/Ikony/usun_kolumne.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon3.addFile(QStringLiteral("Ikony/usun_kolumne.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionUsun_kolumne->setIcon(icon3);
         actionDodaj_wiersz = new QAction(PLCino);
         actionDodaj_wiersz->setObjectName(QStringLiteral("actionDodaj_wiersz"));
         QIcon icon4;
-        icon4.addFile(QString::fromUtf8(":/ikony/C:/Users/\305\201ukasz/Box Sync/In\305\274ynierka/Ikony/rsz_dodaj_wiersz.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon4.addFile(QStringLiteral("Ikony/dodaj_wiersz.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionDodaj_wiersz->setIcon(icon4);
         actionUsun_wiersz = new QAction(PLCino);
         actionUsun_wiersz->setObjectName(QStringLiteral("actionUsun_wiersz"));
         QIcon icon5;
-        icon5.addFile(QString::fromUtf8(":/ikony/C:/Users/\305\201ukasz/Box Sync/In\305\274ynierka/Ikony/usun_wiersz.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon5.addFile(QStringLiteral("Ikony/usun_wiersz.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionUsun_wiersz->setIcon(icon5);
         actionLeonadro = new QAction(PLCino);
         actionLeonadro->setObjectName(QStringLiteral("actionLeonadro"));
@@ -265,8 +265,8 @@ public:
         mainToolBar->addAction(actionZapisz);
         mainToolBar->addAction(actionOtworz);
         mainToolBar->addSeparator();
-        mainToolBar->addAction(actionNowy_obwod);
-        mainToolBar->addAction(actionUsun_obwod);
+        mainToolBar->addAction(actionNowa_linia);
+        mainToolBar->addAction(actionUsun_linie);
         mainToolBar->addSeparator();
         mainToolBar->addAction(actionDodaj_kolumne);
         mainToolBar->addAction(actionUsun_kolumne);
@@ -300,19 +300,19 @@ public:
         actionZapisz->setShortcut(QApplication::translate("PLCino", "Ctrl+S", Q_NULLPTR));
 #endif // QT_NO_SHORTCUT
         actionUzywane_zmienne->setText(QApplication::translate("PLCino", "U\305\274ywane zmienne", Q_NULLPTR));
-        actionNowy_obwod->setText(QApplication::translate("PLCino", "Nowy obw\303\263d", Q_NULLPTR));
+        actionNowa_linia->setText(QApplication::translate("PLCino", "Nowa linia", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
-        actionNowy_obwod->setToolTip(QApplication::translate("PLCino", "Utw\303\263rz nowy obw\303\263d z drabink\304\205", Q_NULLPTR));
+        actionNowa_linia->setToolTip(QApplication::translate("PLCino", "Utw\303\263rz now\304\205 lini\304\231 z drabink\304\205", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
 #ifndef QT_NO_SHORTCUT
-        actionNowy_obwod->setShortcut(QApplication::translate("PLCino", "Ctrl+T", Q_NULLPTR));
+        actionNowa_linia->setShortcut(QApplication::translate("PLCino", "Ctrl+T", Q_NULLPTR));
 #endif // QT_NO_SHORTCUT
-        actionUsun_obwod->setText(QApplication::translate("PLCino", "Usu\305\204 obw\303\263d", Q_NULLPTR));
+        actionUsun_linie->setText(QApplication::translate("PLCino", "Usu\305\204 lini\304\231", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
-        actionUsun_obwod->setToolTip(QApplication::translate("PLCino", "Usuwa aktualnie wybrany obw\303\263d z drabink\304\205", Q_NULLPTR));
+        actionUsun_linie->setToolTip(QApplication::translate("PLCino", "Usuwa aktualnie wybran\304\205 lini\304\231 z drabink\304\205", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
 #ifndef QT_NO_SHORTCUT
-        actionUsun_obwod->setShortcut(QApplication::translate("PLCino", "Ctrl+W", Q_NULLPTR));
+        actionUsun_linie->setShortcut(QApplication::translate("PLCino", "Ctrl+W", Q_NULLPTR));
 #endif // QT_NO_SHORTCUT
         actionDodaj_kolumne->setText(QApplication::translate("PLCino", "Dodaj kolumn\304\231", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP

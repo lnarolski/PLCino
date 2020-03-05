@@ -18,6 +18,9 @@ public:
     ~Wybor_portu();
 
 private slots:
+    void on_buttonBox_accepted();
+
+    void on_buttonBox_rejected();
 
     void on_buttonBox_clicked(QAbstractButton *button);
 

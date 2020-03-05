@@ -47,10 +47,23 @@ elementy_drabinki::elementy_drabinki(elementy rodzaj, quint32 rodzaj2)
             break;
         }
         break;
+    case operator_matematyczny:
+        switch (rodzaj2) {
+        case DODAWANIE:
+            nazwa = "\n-| + |\n";
+            break;
+        default:
+            nazwa = "\n-| - |\n";
+            break;
+        }
+        break;
     case blok_funkcyjny:
         switch (rodzaj2) {
         case TIMER:
             nazwa = "\n-|TON|\n";
+            break;
+        case MOVE:
+            nazwa = "\n-|MOV|\n";
             break;
         default:
             nazwa = "\n-|CTU|\n";

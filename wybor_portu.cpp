@@ -23,6 +23,16 @@ Wybor_portu::~Wybor_portu()
     delete ui;
 }
 
+void Wybor_portu::on_buttonBox_accepted()
+{
+
+}
+
+void Wybor_portu::on_buttonBox_rejected()
+{
+
+}
+
 void Wybor_portu::on_buttonBox_clicked(QAbstractButton *button)
 {
     if((QPushButton *)button == ui->buttonBox->button(QDialogButtonBox::Reset)){

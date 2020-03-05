@@ -5,6 +5,7 @@ enum elementy {
     cewka,
     styk,
     operator_porownania,
+    operator_matematyczny, //do wyrzucenia
     blok_funkcyjny,
     lacznik,
     pusty
@@ -19,6 +20,7 @@ enum elementy {
 //RODZAJE BLOKÓW FUNKCYJNYCH:
 #define TIMER 1
 #define LICZNIK 2
+#define MOVE 3
 //RODZAJE OPERATORÓW PORÓWNANIA:
 #define WIEKSZY_BADZ_ROWNY 1
 #define WIEKSZY 2
@@ -26,6 +28,9 @@ enum elementy {
 #define MNIEJSZY 4
 #define ROWNY 5
 #define ROZNY 6
+//RODZJE OPERATORÓW MATEMATYCZNYCH:
+#define DODAWANIE 1
+#define ODEJMOWANIE 2
 //RODZAJE ŁĄCZNIKÓW:
 #define LEWO_PRAWO 1
 #define GORA_DOL 2

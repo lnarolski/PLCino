@@ -69,7 +69,7 @@ public:
         QLabel *podanie_zmiennej = new QLabel("Podaj zmienną timera:");
         QLineEdit *podanie_zmiennej_QLineEdit = new QLineEdit();
         podanie_zmiennej_QLineEdit->setText(adres_temp->zmienna);
-        QLabel *podanie_wartosci = new QLabel("Podaj PT(ms):");
+        QLabel *podanie_wartosci = new QLabel("Podaj PV(ms):");
         QLineEdit *podanie_wartosci_QLineEdit = new QLineEdit();
         podanie_wartosci_QLineEdit->setInputMask("99999");
         podanie_wartosci_QLineEdit->setText(adres_temp->parametry.value(PV));

@@ -13,9 +13,15 @@ edycja_specjalna::edycja_specjalna(elementy_drabinki *temp)
         case TIMER:
             this->addPage(edycja_timera());
             break;
+        case MOVE:
+            this->addPage(edycja_MOVE());
+            break;
         default:
             break;
         }
+        break;
+    case operator_matematyczny:
+        this->addPage(edycja_operatora_matematycznego());
         break;
     case operator_porownania:
         this->addPage(edycja_operatora_porownania());
@@ -41,11 +47,21 @@ void edycja_specjalna::accept()
             adres_temp->parametry.insert(PV, field("podanie_wartosci_QLineEdit").toString());
             this->hide();
             break;
+        case MOVE:
+            adres_temp->parametry.insert(ELEMENT_DO_PRZENIESIENIA, field("podanie_wartosci_QLineEdit").toString());
+            adres_temp->parametry.insert(ZMIENNA_DOCELOWA, field("podanie_zmiennej_docelowej_QLineEdit").toString());
+            this->hide();
+            break;
         default:
             break;
         }
         break;
     case operator_porownania:
+        adres_temp->parametry.insert(ELEMENT1, field("podanie_element1_QLineEdit").toString());
+        adres_temp->parametry.insert(ELEMENT2, field("podanie_element2_QLineEdit").toString());
+        this->hide();
+        break;
+    case operator_matematyczny:
         adres_temp->parametry.insert(ELEMENT1, field("podanie_element1_QLineEdit").toString());
         adres_temp->parametry.insert(ELEMENT2, field("podanie_element2_QLineEdit").toString());
         this->hide();

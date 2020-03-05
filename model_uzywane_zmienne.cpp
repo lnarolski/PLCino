@@ -20,6 +20,7 @@ int model_uzywane_zmienne::columnCount(const QModelIndex & parent) const
 
 QVariant model_uzywane_zmienne::data(const QModelIndex& index, int role) const
 {
+    //DODAĆ KOMENTARZE!!!!!!!!!!!!!!!!!!!
     if (!_map)
             return QVariant();
     if (index.row() < 0 ||

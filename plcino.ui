@@ -308,8 +308,8 @@
    <addaction name="actionZapisz"/>
    <addaction name="actionOtworz"/>
    <addaction name="separator"/>
-   <addaction name="actionNowy_obwod"/>
-   <addaction name="actionUsun_obwod"/>
+   <addaction name="actionNowa_linia"/>
+   <addaction name="actionUsun_linie"/>
    <addaction name="separator"/>
    <addaction name="actionDodaj_kolumne"/>
    <addaction name="actionUsun_kolumne"/>
@@ -368,31 +368,31 @@
     <string>Używane zmienne</string>
    </property>
   </action>
-  <action name="actionNowy_obwod">
+  <action name="actionNowa_linia">
    <property name="icon">
-    <iconset resource="zasoby.qrc">
-     <normaloff>:/ikony/C:/Users/Łukasz/Box Sync/Inżynierka/Ikony/nowa_linia.png</normaloff>:/ikony/C:/Users/Łukasz/Box Sync/Inżynierka/Ikony/nowa_linia.png</iconset>
+    <iconset>
+     <normaloff>Ikony/nowa_linia.png</normaloff>Ikony/nowa_linia.png</iconset>
    </property>
    <property name="text">
-    <string>Nowy obwód</string>
+    <string>Nowa linia</string>
    </property>
    <property name="toolTip">
-    <string>Utwórz nowy obwód z drabinką</string>
+    <string>Utwórz nową linię z drabinką</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+T</string>
    </property>
   </action>
-  <action name="actionUsun_obwod">
+  <action name="actionUsun_linie">
    <property name="icon">
-    <iconset resource="zasoby.qrc">
-     <normaloff>:/ikony/C:/Users/Łukasz/Box Sync/Inżynierka/Ikony/usun_linie.png</normaloff>:/ikony/C:/Users/Łukasz/Box Sync/Inżynierka/Ikony/usun_linie.png</iconset>
+    <iconset>
+     <normaloff>Ikony/usun_linie.png</normaloff>Ikony/usun_linie.png</iconset>
    </property>
    <property name="text">
-    <string>Usuń obwód</string>
+    <string>Usuń linię</string>
    </property>
    <property name="toolTip">
-    <string>Usuwa aktualnie wybrany obwód z drabinką</string>
+    <string>Usuwa aktualnie wybraną linię z drabinką</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+W</string>
@@ -400,8 +400,8 @@
   </action>
   <action name="actionDodaj_kolumne">
    <property name="icon">
-    <iconset resource="zasoby.qrc">
-     <normaloff>:/ikony/C:/Users/Łukasz/Box Sync/Inżynierka/Ikony/dodaj_kolumne.png</normaloff>:/ikony/C:/Users/Łukasz/Box Sync/Inżynierka/Ikony/dodaj_kolumne.png</iconset>
+    <iconset>
+     <normaloff>Ikony/dodaj_kolumne.png</normaloff>Ikony/dodaj_kolumne.png</iconset>
    </property>
    <property name="text">
     <string>Dodaj kolumnę</string>
@@ -412,8 +412,8 @@
   </action>
   <action name="actionUsun_kolumne">
    <property name="icon">
-    <iconset resource="zasoby.qrc">
-     <normaloff>:/ikony/C:/Users/Łukasz/Box Sync/Inżynierka/Ikony/usun_kolumne.png</normaloff>:/ikony/C:/Users/Łukasz/Box Sync/Inżynierka/Ikony/usun_kolumne.png</iconset>
+    <iconset>
+     <normaloff>Ikony/usun_kolumne.png</normaloff>Ikony/usun_kolumne.png</iconset>
    </property>
    <property name="text">
     <string>Usuń kolumnę</string>
@@ -424,8 +424,8 @@
   </action>
   <action name="actionDodaj_wiersz">
    <property name="icon">
-    <iconset resource="zasoby.qrc">
-     <normaloff>:/ikony/C:/Users/Łukasz/Box Sync/Inżynierka/Ikony/rsz_dodaj_wiersz.png</normaloff>:/ikony/C:/Users/Łukasz/Box Sync/Inżynierka/Ikony/rsz_dodaj_wiersz.png</iconset>
+    <iconset>
+     <normaloff>Ikony/dodaj_wiersz.png</normaloff>Ikony/dodaj_wiersz.png</iconset>
    </property>
    <property name="text">
     <string>Dodaj wiersz</string>
@@ -433,8 +433,8 @@
   </action>
   <action name="actionUsun_wiersz">
    <property name="icon">
-    <iconset resource="zasoby.qrc">
-     <normaloff>:/ikony/C:/Users/Łukasz/Box Sync/Inżynierka/Ikony/usun_wiersz.png</normaloff>:/ikony/C:/Users/Łukasz/Box Sync/Inżynierka/Ikony/usun_wiersz.png</iconset>
+    <iconset>
+     <normaloff>Ikony/usun_wiersz.png</normaloff>Ikony/usun_wiersz.png</iconset>
    </property>
    <property name="text">
     <string>Usuń wiersz</string>
@@ -512,8 +512,6 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="zasoby.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

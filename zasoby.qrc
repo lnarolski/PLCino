@@ -1,11 +1,11 @@
 <RCC>
-    <qresource prefix="/ikony">
-        <file>C:/Users/Łukasz/Box Sync/Inżynierka/Ikony/dodaj_kolumne.png</file>
-        <file>C:/Users/Łukasz/Box Sync/Inżynierka/Ikony/dodaj_wiersz.png</file>
-        <file>C:/Users/Łukasz/Box Sync/Inżynierka/Ikony/nowa_linia.png</file>
-        <file>C:/Users/Łukasz/Box Sync/Inżynierka/Ikony/rsz_dodaj_wiersz.png</file>
-        <file>C:/Users/Łukasz/Box Sync/Inżynierka/Ikony/usun_kolumne.png</file>
-        <file>C:/Users/Łukasz/Box Sync/Inżynierka/Ikony/usun_linie.png</file>
-        <file>C:/Users/Łukasz/Box Sync/Inżynierka/Ikony/usun_wiersz.png</file>
+    <qresource prefix="/">
+        <file>Ikony/dodaj_kolumne.png</file>
+        <file>Ikony/dodaj_wiersz.png</file>
+        <file>Ikony/nowa_linia.png</file>
+        <file>Ikony/rsz_dodaj_wiersz.png</file>
+        <file>Ikony/usun_kolumne.png</file>
+        <file>Ikony/usun_linie.png</file>
+        <file>Ikony/usun_wiersz.png</file>
     </qresource>
 </RCC>
