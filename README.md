@@ -13,3 +13,5 @@ Aplikacja została opracowana z wykorzystaniem bibliotek Qt w wersji 5.9.1. Przy
 # TODO
 - Dodanie obsługi kolejnych układów Arduino
 - Dodanie obsługi kolejnych elementów języka drabinkowego
+
+# [Więcej informacji](https://narolski.eu/2020/10/07/plcino-opis-projektu/)
